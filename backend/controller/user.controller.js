@@ -87,6 +87,7 @@ const verifycode = asyncHandler(async (req, res) => {
         );
     }
 });
+
 const test = asyncHandler(async (req, res) => {
     const { phoneNumber } = req.body
     const accessToken = await generateAccesstoken(phoneNumber);
