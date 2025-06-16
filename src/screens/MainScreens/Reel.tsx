@@ -1,8 +1,8 @@
 ﻿import React, { useState, useRef } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, ScrollView, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Video from 'react-native-video';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 type Video = {
     username: string,
     description: string,
@@ -47,7 +47,7 @@ const ShortVideoCard = (videoData: Video) => {
         <View style={styles.container}>
             {/* Video Player */}
             <TouchableOpacity
-                activeOpacity={0.9}
+                activeOpacity={1}
                 style={styles.videoContainer}
                 onPress={togglePlayback}
             >
@@ -68,6 +68,7 @@ const ShortVideoCard = (videoData: Video) => {
                     </View>
                 )}
             </TouchableOpacity>
+            {/*Top bar */}
             {/* Bottom Info Section */}
             <View style={styles.infoContainer}>
                 <View style={styles.profileSection}>
@@ -78,16 +79,6 @@ const ShortVideoCard = (videoData: Video) => {
                     <Text style={styles.username}>{videoData.username}</Text>
                 </View>
                 <Text style={styles.description} numberOfLines={2}>{videoData.description}</Text>
-                <View style={styles.likeSection}>
-                    <TouchableOpacity style={styles.likeButton} onPress={handleLike}>
-                        <Icon
-                            name={isLiked ? 'heart' : 'heart-o'}
-                            size={20}
-                            color={isLiked ? 'red' : 'white'}
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.likeCount}>{formatLikeCount(likeCount)}</Text>
-                </View>
             </View>
             {/* Right Action Bar */}
             <View style={styles.actionBar}>
@@ -95,44 +86,42 @@ const ShortVideoCard = (videoData: Video) => {
                     <Icon
                         name={isLiked ? 'heart' : 'heart-o'}
                         size={30}
-                        color={isLiked ? 'red' : 'white'}
+                        color={isLiked ? 'rgb(214, 104, 92)' : 'rgba(185, 199, 224, 1)'}
                     />
                     <Text style={styles.actionText}>{formatLikeCount(likeCount)}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.actionButton}>
-                    <Icon name="comment" size={30} color="white" />
+                    <Ionicons name="chatbubble" size={30} color="rgba(185, 199, 224, 1)" />
                     <Text style={styles.actionText}>{videoData.comments}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.actionButton}>
-                    <Icon name="share" size={30} color="white" />
+                    <Icon name="share" size={30} color="rgba(185, 199, 224, 1)" />
                     <Text style={styles.actionText}>{videoData.shares}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.actionButton}>
-                    <Icon name="ellipsis-v" size={30} color="white" />
+                    <Icon name="ellipsis-v" size={30} color="rgba(185, 199, 224, 1)" />
                 </TouchableOpacity>
                 {/* Music/audio indicator */}
                 <View style={styles.musicNote}>
-                    <Icon name="music" size={20} color="white" />
+                    <Icon name="music" size={20} color="rgba(185, 199, 224, 1)" />
                 </View>
             </View>
-        </View>
+        </View >
     );
 };
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 const styles = StyleSheet.create({
     container: {
         width: windowWidth,
-        height: windowHeight * 0.8,
-        position: 'relative',
+        height: height * 0.876,
         backgroundColor: 'black',
     },
     videoContainer: {
         width: '100%',
         height: '100%',
-        position: 'relative',
     },
     video: {
         width: '100%',
@@ -144,14 +133,34 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(0,0,0,0.3)',
     },
+    TopBar: {
+        position: 'absolute',
+        flexDirection: 'row',
+        height: height * 0.06,
+        width: windowWidth,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        alignItems: 'center',
+        padding: 10,
+        zIndex: 2,
+    },
+    IconofTopBar: {
+
+    },
+    headerofTopbar: {
+        fontSize: 22,
+        fontFamily: 'serif',
+        paddingLeft: 10,
+        color: 'rgb(250, 250, 250)',
+    },
     infoContainer: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 10,
         left: 10,
         right: 60,
         padding: 10,
         backgroundColor: 'rgba(0,0,0,0.5)',
         borderRadius: 10,
+        width: windowWidth * 0.87,
     },
     profileSection: {
         flexDirection: 'row',
@@ -224,23 +233,40 @@ const Reel = () => {
     const videos = [
         {
             username: 'Physiswallah',
-            description: 'Pankaj sir shayri jaha kuch log meri .....',
+            description: 'Pankaj sir shayri jaha kuch log meri...',
             likes: 3200,
             comments: '245',
             shares: '56',
-            profilePic: 'https://example.com/profile.jpg',
-            videoUrl: 'https://example.com/video1.mp4',
+            profilePic: 'https://th.bing.com/th/id/OIP.UTlaSVQaqqqFUNuhGSGh3wHaHa?w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+            videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
         },
-        // Add more videos here
+        {
+            username: 'Physiswallah',
+            description: 'Pankaj sir shayri jaha kuch log meri ...',
+            likes: 3200,
+            comments: '245',
+            shares: '56',
+            profilePic: 'https://th.bing.com/th/id/OIP.UTlaSVQaqqqFUNuhGSGh3wHaHa?w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+            videoUrl: 'https://videos.pexels.com/video-files/7565431/7565431-hd_1080_1920_25fps.mp4',
+        },
     ];
     return (
-        <ScrollView pagingEnabled>
-            {videos.map((video, index) => (
-                <ShortVideoCard key={index} videoData={video} />
-            ))}
-        </ScrollView>
+        <View style={{ height: height * 0.876 }}>
+            <View style={styles.TopBar}>
+                <TouchableHighlight style={styles.IconofTopBar} underlayColor="transparent">
+                    <Ionicons name="arrow-back" size={24} color="#fff" />
+                </TouchableHighlight>
+                <Text style={styles.headerofTopbar}>Short Videos</Text>
+            </View>
+            <ScrollView pagingEnabled >
+                {videos.map((video, idx) => (
+                    <ShortVideoCard key={idx} {...video} />
+                ))}
+            </ScrollView>
+        </View>
     );
 };
 
 
 export default Reel;
+

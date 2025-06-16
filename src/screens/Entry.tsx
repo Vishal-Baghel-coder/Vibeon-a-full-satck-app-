@@ -74,8 +74,8 @@ const Entry = () => {
                         <Text style={styles.blueText}>world</Text>
                     </Text>
                     <Text style={styles.textLine}>
-                        <Text style={styles.lightBlueText}>in your </Text>
-                        <Text style={styles.blackText}>voice.</Text>
+                        <Text style={styles.blueText}>in your </Text>
+                        <Text style={styles.grayText}>voice.</Text>
                     </Text>
                 </View>
             </ImageBackground>
@@ -95,21 +95,21 @@ const styles = StyleSheet.create({
     typewriterText: {
         fontSize: 34,
         fontWeight: '700',
-        color: '#2d3748',
+        color: '#001F3F',
     },
     cursor: {
         color: '#4299e1',
     },
     container: {
         flex: 1,
-        backgroundColor: '#A8C3E2', // light gradient alternative
+        backgroundColor: '#648DB3', // light gradient alternative
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingVertical: 70,
     },
     backgroundShapes: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: '#E0ECFF', // placeholder background
+        backgroundColor: '#3A6D8C', // placeholder background
         zIndex: -1,
     },
     content: {
@@ -124,17 +124,11 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         flexDirection: 'row',
     },
-    blackText: {
-        color: '#000000',
-    },
     grayText: {
-        color: '#333333',
+        color: '#001F3F',
     },
     blueText: {
-        color: '#6495ED',
-    },
-    lightBlueText: {
-        color: '#7AA7FF',
+        color: '#3A6D8C',
     },
     button: {
         backgroundColor: '#C6E2FF',
@@ -143,7 +137,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: width * 0.24,
     },
     buttonText: {
-        color: '#4A6CF7',
+        color: '#3A6D8C',
         fontSize: 16,
         fontWeight: '600',
     },

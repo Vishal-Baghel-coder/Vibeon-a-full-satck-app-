@@ -7,14 +7,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Modal } from 'react-native';
 const Separator = () => <View style={styles.separator} />;
 const stories = [
-    { id: '0', name: 'Your Story', image: require('../../assets/stories/Vishal.jpg') },
-    { id: '1', name: 'Dev', image: require('../../assets/stories/Dev.jpg') },
-    { id: '2', name: 'Noor', image: require('../../assets/stories/niti.jpg') },
-    { id: '3', name: 'manish', image: require('../../assets/stories/manish.jpg') },
-    { id: '4', name: 'manish', image: require('../../assets/stories/manish.jpg') },
-    { id: '7', name: 'manish', image: require('../../assets/stories/manish.jpg') },
-    { id: '8', name: 'manish', image: require('../../assets/stories/manish.jpg') },
-    { id: '9', name: 'manish', image: require('../../assets/stories/manish.jpg') },
+    { id: '0', name: 'Your Story', image: require('../../assets/stories/Vishal.jpg'), seen: true },
+    { id: '1', name: 'Dev', image: require('../../assets/stories/Dev.jpg'), seen: true },
+    { id: '2', name: 'Noor', image: require('../../assets/stories/niti.jpg'), seen: false },
+    { id: '3', name: 'manish', image: require('../../assets/stories/manish.jpg'), seen: true },
+    { id: '4', name: 'manish', image: require('../../assets/stories/manish.jpg'), seen: false },
+    { id: '7', name: 'manish', image: require('../../assets/stories/manish.jpg'), seen: true },
+    { id: '8', name: 'manish', image: require('../../assets/stories/manish.jpg'), seen: true },
+    { id: '9', name: 'manish', image: require('../../assets/stories/manish.jpg'), seen: true },
 ];
 
 const posts = [
@@ -68,20 +68,22 @@ type posttype = {
 };
 
 const { width, height } = Dimensions.get('window');
-const StoryItem = ({ item }: { item: { name: string; image: any } }) => (
-    <View style={{ alignItems: 'center', marginHorizontal: 8, height: height * 0.17 }}>
-        <Image source={item.image} style={{ width: width * 0.22, height: height * 0.103, borderRadius: 40, borderWidth: 1.4, borderColor: '#3458eb' }} />
-        <Text style={{ marginTop: 4, fontSize: 12 }}>{item.name}</Text>
+const StoryItem = ({ item }: { item: { name: string; image: any; seen: boolean } }) => (
+    <View style={{ alignItems: 'center', marginHorizontal: 8, height: height * 0.13, alignContent: 'center' }}>
+        <View style={{ width: width * 0.24, padding: 4, borderRadius: 50, borderWidth: 4.5, borderColor: item.seen ? '#9DB2BF' : '#DDE6ED' }}>
+            <Image source={item.image} style={{ width: '100%', height: height * 0.1, borderRadius: 40 }} />
+        </View>
+        <Text style={{ marginTop: 4, fontSize: 11, color: '#DDE6ED' }}>{item.name}</Text>
     </View>
 );
 const renderheader = () => (
-    <View style={{ alignItems: 'center', marginHorizontal: 8, height: height * 0.17 }}>
-        <View style={{ width: 87, height: 87, borderRadius: 40, borderWidth: 2.2, borderColor: 'rgb(78, 131, 229)', backgroundColor: 'rgb(169, 188, 216)', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+    <View style={{ alignItems: 'center', marginHorizontal: 8, height: height * 0.13 }}>
+        <View style={{ width: width * 0.216, height: height * 0.104, borderRadius: 40, borderWidth: 2.2, borderColor: 'rgb(78, 131, 229)', backgroundColor: 'rgb(169, 188, 216)', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
             <TouchableOpacity style={{ flex: 1, alignSelf: 'center' }}>
-                <Icon name="person" size={80} color={'rgb(12, 70, 150)'} />
+                <Icon name="person" size={width * 0.186} color={'rgb(12, 70, 150)'} />
             </TouchableOpacity>
             <TouchableOpacity style={{ backgroundColor: 'white', borderRadius: 20, width: 31, padding: 5, zIndex: 2, position: 'absolute' }}>
-                <Ionicons name="add" size={22} color="black" />
+                <Ionicons name="add" size={22} color="#DDE6ED" />
             </TouchableOpacity>
         </View>
         <Text style={{ marginTop: 4, fontSize: 12 }}>Your status</Text>
@@ -216,12 +218,15 @@ const PostItem: React.FC<PostItemProps> = ({ item }) => {
     };
 
     return (
-        <View style={{ backgroundColor: '#2d3c6b', marginVertical: 10, borderRadius: 10, padding: 10 }}>
+        <View style={{ backgroundColor: '#27374D', marginVertical: 10, borderRadius: 10, padding: 10 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image source={require('../../assets/stories/Dev.jpg')} style={{ width: 30, height: 30, borderRadius: 15 }} />
                 <View style={{ marginLeft: 8 }}>
                     <Text style={{ color: 'white', fontWeight: 'bold' }}>
-                        {item.user} {item.verified && <Ionicons name="checkmark-circle" size={14} color="skyblue" />}
+                        <Text>
+                            {item.user}
+                            {item.verified && <Ionicons name="checkmark-circle" size={14} color="skyblue" />}
+                        </Text>
                     </Text>
                     <Text style={{ color: '#ccc', fontSize: 12 }}>{item.time}</Text>
                 </View>
@@ -230,21 +235,19 @@ const PostItem: React.FC<PostItemProps> = ({ item }) => {
             <Text style={{ color: 'skyblue', marginTop: 4 }}>{item.hashtags?.join(' ')}</Text>
             <Image source={item.image} style={{ width: '100%', height: 200, borderRadius: 10, marginTop: 10 }} />
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-                <Text style={{ color: 'white', justifyContent: 'center' }}>
+                <View style={styles.posticons}>
                     <TouchableWithoutFeedback onPress={handlePressforlike}>
-                        <View style={styles.posticons}>
-                            <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-                                <Ionicons
-                                    name={liked ? 'heart' : 'heart-outline'}
-                                    size={28}
-                                    color={liked ? '#e53e3e' : '#ffffff'}
-                                />
-                            </Animated.View>
-                            <Text style={{ color: 'white', paddingLeft: 5 }}>{item.likes}</Text>
-                        </View>
+                        <Animated.View style={{ transform: [{ scale: scaleAnim }], marginBottom: 3 }}>
+                            <Ionicons
+                                name={liked ? 'heart' : 'heart-outline'}
+                                size={28}
+                                color={liked ? 'rgb(214, 104, 92)' : '#ffffff'}
+                            />
+                        </Animated.View>
                     </TouchableWithoutFeedback>
-                </Text>
-                <View style={[styles.posticons]}><Ionicons name="chatbubble-outline" size={22} color="white" onPress={() => { setMainModalVisible(true); }} /><Text style={styles.posticontext}>{item.comments}</Text> </View>
+                    <Text style={{ color: 'white', paddingLeft: 5 }}>{item.likes}</Text>
+                </View>
+                <View style={[styles.posticons]}><Ionicons name="chatbubble-outline" size={25} color="white" onPress={() => { setMainModalVisible(true); }} /><Text style={styles.posticontext}>{item.comments}</Text> </View>
                 <View style={styles.posticons}><Ionicons name="share-social-outline" size={22} color="white" /> <Text style={styles.posticontext}>{item.shares}</Text></View>
             </View>
             <Modal visible={mainModalVisible} animationType="none" transparent={true} onRequestClose={() => setMainModalVisible(false)}>
@@ -341,12 +344,12 @@ const PostItem: React.FC<PostItemProps> = ({ item }) => {
 
 export default function HomePage() {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#a3c8ff' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#526D82' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, paddingLeft: 24, paddingRight: 24 }}>
-                <Text style={{ fontSize: 28, fontFamily: 'serif', color: '#3a56d6' }}>Vibeon</Text>
+                <Text style={{ fontSize: 28, fontFamily: 'serif', color: '#DDE6ED' }}>Vibeon</Text>
                 <View style={{ flexDirection: 'row', gap: 12 }}>
-                    <Ionicons name="chatbubble-outline" size={30} color="black" style={{ marginHorizontal: 10 }} />
-                    <Ionicons name="notifications-outline" size={30} color="black" />
+                    <Ionicons name="chatbubble-outline" size={30} color="#DDE6ED" style={{ marginHorizontal: 10 }} />
+                    <Ionicons name="notifications-outline" size={30} color="#DDE6ED" />
                 </View>
             </View>
             <FlatList
@@ -356,14 +359,15 @@ export default function HomePage() {
                 keyExtractor={(item) => item.id}
                 showsHorizontalScrollIndicator={false}
                 ListHeaderComponent={renderheader}
-                style={{ paddingLeft: 10, marginBottom: 10 }}
+                style={{ paddingLeft: 10, height: height * 0.08, marginTop: 10 }}
             />
 
             <FlatList
                 data={posts}
                 renderItem={({ item }) => <PostItem item={item} />}
+                showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item.id}
-                style={{ paddingHorizontal: 10, marginBottom: 70 }}
+                style={{ paddingHorizontal: 10, height: height * 0.62, marginBottom: height * 0.069, paddingLeft: width * 0.037 }}
             />
         </SafeAreaView>
     );

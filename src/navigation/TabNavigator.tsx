@@ -11,35 +11,35 @@ import Create_Content from '../screens/MainScreens/Create_Content';
 function HomeTabBarIcon({ focused }: { focused: boolean }) {
     return (
         <View>
-            <Ionicons name="home" size={30} color={focused ? '#3a56d6' : '#bcd3f7'} />
+            <Ionicons name="home" size={30} color={focused ? '#9DB2BF' : '#526D82'} />
         </View>
     );
 }
 function ReelTabBarIcon({ focused }: { focused: boolean }) {
     return (
         <View>
-            <Ionicons name="play" size={30} color={focused ? '#3a56d6' : '#bcd3f7'} />
+            <Ionicons name="play" size={30} color={focused ? '#9DB2BF' : '#526D82'} />
         </View>
     );
 }
 function ProfileTabBarIcon({ focused }: { focused: boolean }) {
     return (
         <View>
-            <Ionicons name="person-outline" size={30} color={focused ? '#3a56d6' : '#bcd3f7'} />
+            <Ionicons name="person-outline" size={30} color={focused ? '#9DB2BF' : '#526D82'} />
         </View>
     );
 }
 function SearchTabBarIcon({ focused }: { focused: boolean }) {
     return (
         <View>
-            <Ionicons name="search" size={30} color={focused ? '#3a56d6' : '#bcd3f7'} />
+            <Ionicons name="search" size={30} color={focused ? '#9DB2BF' : '#526D82'} />
         </View>
     );
 }
 function CreateTabBarIcon({ focused }: { focused: boolean }) {
     return (
-        <View style={{ backgroundColor: focused ? '#3a56d6' : 'gray', borderRadius: 10, width: 40, height: 40, alignItems: 'center', justifyContent: 'center' }}>
-            <Ionicons name="add" size={28} color="white" />
+        <View style={{ backgroundColor: focused ? '#9DB2BF' : '#526D82', borderRadius: 10, width: 40, height: 40, alignItems: 'center', justifyContent: 'center' }}>
+            <Ionicons name="add" size={28} color={focused ? '#526D82' : '#9DB2BF'} />
         </View>
     );
 }
@@ -53,14 +53,13 @@ export default function TabNavigator() {
                 tabBarShowLabel: false,
                 headerShown: false,
                 tabBarStyle: {
-                    backgroundColor: 'rgba(125, 161, 227, 0.9)',
+                    backgroundColor: '#27374D',
                     position: 'absolute',
-                    height: 70,
+                    height: 60,
                     elevation: 0,
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20,
                 },
-                tabBarActiveTintColor: '#3a56d6',
+                tabBarHideOnKeyboard: true,
+                tabBarActiveTintColor: '#526D82',
                 tabBarInactiveTintColor: 'gray',
                 tabBarItemStyle: {
                     marginTop: 10,
@@ -103,8 +102,9 @@ export default function TabNavigator() {
                 component={Profile}
                 options={{
                     tabBarIcon: ProfileTabBarIcon,
+                    tabBarStyle: { display: 'none' },
                 }}
             />
-        </Tab.Navigator >
+        </Tab.Navigator>
     );
 }
