@@ -45,3 +45,16 @@ git clone https://github.com/your-username/vibeon.git
 cd vibeon
 npm install
 npx react-native run-android  # or run-ios if on macOS
+
+
+---
+
+Let me know if you want:
+- GitHub badge/icons
+- LinkedIn/email links updated
+- To add your screenshots now (you can upload them here)
+- A Hindi or bilingual version too
+
+I can also help you write a **GitHub description + tags** if you’re publishing it online.
+
+
